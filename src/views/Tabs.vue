@@ -12,9 +12,9 @@
           <ion-label>Tab 2</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="tab3" href="/tabs/tab3">
-          <ion-icon :icon="square" />
-          <ion-label>Tab 3</ion-label>
+        <ion-tab-button tab="camera" href="/tabs/camera">
+          <ion-icon :icon="camera" />
+          <ion-label>Photo</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage } from '@ionic/vue';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { ellipse, camera, triangle } from 'ionicons/icons';
 
 export default {
   name: 'Tabs',
@@ -31,7 +31,7 @@ export default {
   setup() {
     return {
       ellipse, 
-      square, 
+      camera, 
       triangle,
     }
   }

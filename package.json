@@ -1,5 +1,5 @@
 {
-  "name": "myApp",
+  "name": "henry-app",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@capacitor/android": "^2.4.3",
     "@capacitor/core": "2.4.3",
+    "@capacitor/ios": "^2.4.3",
+    "@ionic/pwa-elements": "^3.0.1",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "core-js": "^3.6.5",
