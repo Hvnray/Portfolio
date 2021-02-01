@@ -1,44 +1,20 @@
 <template>
-  <ion-page>
-    <!-- <ion-content> -->
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" :key="photo" v-for="photo in photos">
-          <ion-img
-            :src="photo.webviewPath"
-            @click="showActionSheet(photo)"
-          ></ion-img>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <!-- <ion-fab> markup  -->
-    <ion-fab
-      style="padding-bottom:50px"
-      vertical="bottom"
-      horizontal="center"
-      slot="fixed"
-    >
-      <ion-fab-button @click="takePhoto()">
-        <ion-icon :icon="camera"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-    <!-- </ion-content> -->
-  </ion-page>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" :key="photo" v-for="photo in photos">
+        <ion-img
+          :src="photo.webviewPath"
+          @click="showActionSheet(photo)"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </template>
 
 <script lang="ts">
-import { camera, trash, close } from "ionicons/icons";
+import { trash, close } from "ionicons/icons";
 import {
   actionSheetController,
-  IonPage,
-  // IonHeader,
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  // IonToolbar,
-  // IonTitle,
-  // IonContent,
   IonGrid,
   IonRow,
   IonCol,
@@ -51,33 +27,29 @@ export default {
     name: String,
   },
   components: {
-    IonPage,
-    // IonHeader,
-    IonFab,
-    IonFabButton,
-    IonIcon,
-    // IonToolbar,
-    // IonTitle,
-    // IonContent,
     IonGrid,
     IonRow,
     IonCol,
     IonImg,
   },
   ionViewDidEnter() {
-    console.log('Camera page did enter');
+    console.log("Camera page did enter");
   },
   ionViewDidLeave() {
-    console.log('Camera page did leave');
+    console.log("Camera page did leave");
   },
   ionViewWillEnter() {
-    console.log('Camera page will enter');
+    console.log("Camera page will enter");
   },
   ionViewWillLeave() {
-    console.log('Camera page will leave');
+    console.log("Camera page will leave");
   },
   setup() {
-    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
+    const {
+      photos, 
+      //takePhoto,
+      deletePhoto,
+    } = usePhotoGallery();
     const showActionSheet = async (photo: Photo) => {
       const actionSheet = await actionSheetController.create({
         header: "Photos",
@@ -105,9 +77,9 @@ export default {
     return {
       showActionSheet,
       photos,
-      takePhoto,
+      // takePhoto,
       deletePhoto,
-      camera,
+      // camera,
       trash,
       close,
     };

@@ -100,31 +100,43 @@ export function usePhotoGallery() {
 
   const deletePhoto = async (photo: Photo) => {
     // Remove this photo from the Photos reference data array
-    photos.value = photos.value.filter((p) => p.filepath !== photo.filepath);
+    try {
+      photos.value = photos.value.filter((p) => p.filepath !== photo.filepath);
 
-    // delete photo file from filesystem
-    const filename = photo.filepath.substr(photo.filepath.lastIndexOf("/") + 1);
-    await Filesystem.deleteFile({
-      path: filename,
-      directory: FilesystemDirectory.Data,
-    });
+      // delete photo file from filesystem
+      const filename = photo.filepath.substr(
+        photo.filepath.lastIndexOf("/") + 1
+      );
+      await Filesystem.deleteFile({
+        path: filename,
+        directory: FilesystemDirectory.Data,
+      });
+    } catch (error) {
+      console.log(error, "==>error");
+    }
   };
   const loadSaved = async () => {
-    const photoList = await Storage.get({ key: PHOTO_STORAGE });
-    const photosInStorage = photoList.value ? JSON.parse(photoList.value) : [];
+    try {
+      const photoList = await Storage.get({ key: PHOTO_STORAGE });
+      const photosInStorage = photoList.value
+        ? JSON.parse(photoList.value)
+        : [];
 
-    // If running on the web...
-    if (!isPlatform("hybrid")) {
-      for (const photo of photosInStorage) {
-        const file = await Filesystem.readFile({
-          path: photo.filepath,
-          directory: FilesystemDirectory.Data,
-        });
-        // Web platform only: Load the photo as base64 data
-        photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
+      // If running on the web...
+      if (!isPlatform("hybrid")) {
+        for (const photo of photosInStorage) {
+          const file = await Filesystem.readFile({
+            path: photo.filepath,
+            directory: FilesystemDirectory.Data,
+          });
+          // Web platform only: Load the photo as base64 data
+          photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
+        }
       }
+      photos.value = photosInStorage;
+    } catch (error) {
+      console.log(error, "==>error");
     }
-    photos.value = photosInStorage;
   };
   watch(photos, cachePhotos);
   onMounted(loadSaved);
